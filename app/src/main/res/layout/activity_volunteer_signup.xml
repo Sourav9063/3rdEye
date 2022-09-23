@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/layout1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:srcCompat="@drawable/volunteering" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:text="SignUp as Volunteer"
+            android:textColor="#673AB7"
+            android:textSize="17sp" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:outlineSpotShadowColor="@color/black"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:boxStrokeColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="name"
+                android:inputType="text"
+                app:boxStrokeColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:outlineSpotShadowColor="@color/black"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:boxStrokeColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:inputType="textEmailAddress"
+                android:hint="email" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:outlineSpotShadowColor="@color/black"
+            app:endIconMode="password_toggle"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="password" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/sign_up_vol"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:backgroundTint="#A866B3"
+            android:text="Sign Up"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            app:backgroundTint="#A866B3" />
+
+        <Button
+            android:id="@+id/account_log_in"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/rectangle"
+            android:backgroundTint="#A866B3"
+            android:text="Already have an account? Login"
+            android:textColor="#673AB7"
+            android:textSize="15sp"
+            android:stateListAnimator="@null"
+            app:backgroundTint="@android:color/transparent" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="right">
+
+        <Button
+            android:id="@+id/go_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:text="Go Back"
+            android:textAlignment="viewStart"
+            android:stateListAnimator="@null"
+            android:textColor="#A866B3"
+            android:textSize="18dp"
+            app:backgroundTint="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="85dp"
+            android:layout_height="100dp"
+            android:layout_gravity="bottom|right"
+            app:srcCompat="@drawable/layout2" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

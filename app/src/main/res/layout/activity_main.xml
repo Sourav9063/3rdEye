@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:paddingVertical="16dp"
+    android:rotationX="0">
+
+    <Button
+        android:id="@+id/Move"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:stateListAnimator="@null"
+        android:layout_weight="1"
+        android:background="@null"
+        android:drawableLeft="@drawable/thirdeye"
+        android:paddingBottom="16dp"
+        app:backgroundTint="@android:color/transparent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:fontFamily="cursive"
+        android:text="3rd Eye"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:textColor="#673AB7"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="364dp" />
+</LinearLayout>
