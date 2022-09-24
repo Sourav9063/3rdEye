@@ -30,7 +30,7 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="213dp"
+            android:layout_width="150dp"
             android:layout_height="145dp"
             app:srcCompat="@drawable/thirdeye" />
 
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle"
             android:backgroundTint="#9C27B0"
-            android:text="Sign Up"
+            android:text="Sign Up as a user"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
@@ -55,7 +55,7 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/sign_up_volunteer"
+            android:id="@+id/button8"
             android:background="@drawable/rectangle"
             android:layout_width="300sp"
             android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/go_back"
+            android:id="@+id/go_back_option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"

@@ -29,7 +29,7 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="213dp"
+            android:layout_width="150dp"
             android:layout_height="145dp"
             app:srcCompat="@drawable/thirdeye" />
 

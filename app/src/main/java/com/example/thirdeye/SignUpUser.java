@@ -6,14 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class VolunteerSignup extends AppCompatActivity {
-    private Button go_back;
+public class SignUpUser extends AppCompatActivity {
+    private Button go_back_user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        go_back=findViewById(R.id.go_back_vol);
+        go_back_user=findViewById(R.id.go_back_user);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_volunteer_signup);
-//        go_back.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_sign_up_user);
+//        go_back_user.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                onBackPressed();
