@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ThirdEye">
-        <activity android:name=".SignInUser"></activity>
+        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".SignInUser" />
         <activity android:name=".SignUpUser" />
         <activity android:name=".VolunteerSignup" />
         <activity android:name=".SignUpOptions" />
