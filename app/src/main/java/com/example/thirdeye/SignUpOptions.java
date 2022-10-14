@@ -26,16 +26,16 @@ public class SignUpOptions extends AppCompatActivity {
         sign_up_options.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignUpOptions.this, SignUpUser.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(SignUpOptions.this, SignUpUser.class);
+                SignUpOptions.this.startActivity(intent2);
             }
         });
-        go_back_option.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               finish();
-            }
-        });
+//        go_back_option.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//               finish();
+//            }
+//        });
 
     }
 }
