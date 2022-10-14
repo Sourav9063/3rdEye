@@ -19,13 +19,17 @@ public class SignUpOptions extends AppCompatActivity {
         sign_up_volunteer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignUpOptions.this, VolunteerSignup.class);
-                startActivity(intent);
+                Intent intent7 = new Intent(SignUpOptions.this, VolunteerSignup.class);
+                startActivity(intent7);
+//                Intent intent2 = new Intent(SignUpOptions.this, SignUpUser.class);
+//                SignUpOptions.this.startActivity(intent2);
             }
         });
         sign_up_options.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                Intent intent7 = new Intent(SignUpOptions.this, VolunteerSignup.class);
+//                startActivity(intent7);
                 Intent intent2 = new Intent(SignUpOptions.this, SignUpUser.class);
                 SignUpOptions.this.startActivity(intent2);
             }

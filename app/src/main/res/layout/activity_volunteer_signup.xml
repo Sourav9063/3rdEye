@@ -42,7 +42,7 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-
+            android:id="@+id/name_vol"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
@@ -60,6 +60,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_vol"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
@@ -77,6 +78,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/pass_vol"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
