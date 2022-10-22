@@ -1,4 +1,4 @@
-package com.example.thirdeye;
+ package com.example.thirdeye.user_registration;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,22 +7,25 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.thirdeye.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class SignUpUser extends AppCompatActivity implements View.OnClickListener {
+import java.lang.ref.Reference;
+
+ public class SignUpUser extends AppCompatActivity implements View.OnClickListener {
     private Button go_back_user,registerUser;
     private FirebaseAuth mAuth;
     private TextInputLayout editName, editEmail, editPass;
-
+    FirebaseDatabase db;
+    DatabaseReference reference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_sign_up_user);
@@ -34,6 +37,7 @@ public class SignUpUser extends AppCompatActivity implements View.OnClickListene
         editName= findViewById(R.id.name);
         editEmail = findViewById(R.id.email);
         editPass = findViewById(R.id.password);
+
 
 //        go_back_user.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -54,6 +58,7 @@ public class SignUpUser extends AppCompatActivity implements View.OnClickListene
         String name = editName.getEditText().getText().toString().trim();
         String email = editEmail.getEditText().getText().toString().trim();
         String password = editPass.getEditText().getText().toString().trim();
+
 
         if(name.isEmpty()){
             editName.setError("Please provide us your name!");
@@ -85,21 +90,16 @@ public class SignUpUser extends AppCompatActivity implements View.OnClickListene
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     User user = new User(name,"user", email);
-                    FirebaseDatabase.getInstance().getReference("Users")
-                            .child(FirebaseAuth.getInstance().getUid())
-                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                Toast.makeText(SignUpUser.this, "User has been registered successfully!",Toast.LENGTH_LONG).show();
-                            }
-                            else{
-                                Toast.makeText(SignUpUser.this, "Registration failed",Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-                }else{
-                    Toast.makeText(SignUpUser.this, "Registration failed",Toast.LENGTH_LONG).show();
+                    db= FirebaseDatabase.getInstance();
+                    reference= db.getReference("Users");
+                    reference.push().setValue(user);
+
+                    Toast.makeText(SignUpUser.this,"user registered succesfully",Toast.LENGTH_SHORT).show();
+
+                }
+                else
+                {
+                    Toast.makeText(SignUpUser.this,task.getException().getLocalizedMessage(),Toast.LENGTH_SHORT).show();
                 }
             }
         });

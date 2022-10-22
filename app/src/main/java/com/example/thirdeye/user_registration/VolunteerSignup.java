@@ -1,4 +1,4 @@
-package com.example.thirdeye;
+package com.example.thirdeye.user_registration;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,17 +9,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.thirdeye.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class VolunteerSignup extends AppCompatActivity implements View.OnClickListener{
     private Button go_back,registerVolunteer;
     private FirebaseAuth mAuth;
     private TextInputLayout editName, editEmail, editPass;
+    FirebaseDatabase db;
+    DatabaseReference reference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_volunteer_signup);
@@ -84,21 +88,12 @@ public class VolunteerSignup extends AppCompatActivity implements View.OnClickLi
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     User user = new User(name,"volunteer", email);
-                    FirebaseDatabase.getInstance().getReference("Users")
-                            .child(FirebaseAuth.getInstance().getUid())
-                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                Toast.makeText(VolunteerSignup.this, "User has been registered successfully!",Toast.LENGTH_LONG).show();
-                            }
-                            else{
-                                Toast.makeText(VolunteerSignup.this, "Registration failed",Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
+                    db= FirebaseDatabase.getInstance();
+                    reference=db.getReference("Volunteer");
+                    reference.push().setValue(user);
+                    Toast.makeText(VolunteerSignup.this,"Registration Completed",Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(VolunteerSignup.this, "Registration failed",Toast.LENGTH_LONG).show();
+                    Toast.makeText(VolunteerSignup.this,task.getException().getLocalizedMessage(),Toast.LENGTH_SHORT).show();
                 }
             }
         });

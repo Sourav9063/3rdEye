@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.thirdeye.user_registration.SignUP;
 
 public class MainActivity extends AppCompatActivity {
     private Button move;
@@ -14,12 +17,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         move=findViewById(R.id.Move);
-        move.setOnClickListener(new View.OnClickListener() {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,SignUP.class);
-                startActivity(intent);
+            public void run() {
+                startActivity(new Intent(MainActivity.this,Home.class));
+
             }
-        });
+        },1000);
     }
 }
