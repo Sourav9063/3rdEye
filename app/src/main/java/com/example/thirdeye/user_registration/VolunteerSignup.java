@@ -89,7 +89,7 @@ public class VolunteerSignup extends AppCompatActivity implements View.OnClickLi
                 if(task.isSuccessful()){
                     User user = new User(name,"volunteer", email);
                     db= FirebaseDatabase.getInstance();
-                    reference=db.getReference("Users");
+                    reference=db.getReference("Volunteer");
                     reference.push().setValue(user);
                     Toast.makeText(VolunteerSignup.this,"Registration Completed",Toast.LENGTH_SHORT).show();
                 }else{
