@@ -1,4 +1,4 @@
-package com.example.thirdeye;
+package com.example.thirdeye.user_registration;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,49 +7,52 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.thirdeye.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class SignUpUser extends AppCompatActivity implements View.OnClickListener {
-    private Button go_back_user,registerUser;
+public class VolunteerSignup extends AppCompatActivity implements View.OnClickListener{
+    private Button go_back,registerVolunteer;
     private FirebaseAuth mAuth;
     private TextInputLayout editName, editEmail, editPass;
-
+    FirebaseDatabase db;
+    DatabaseReference reference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_sign_up_user);
-        go_back_user=findViewById(R.id.go_back_user);
+        setContentView(R.layout.activity_volunteer_signup);
+        go_back=findViewById(R.id.go_back_vol);
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
-        registerUser= findViewById(R.id.sign_up_user);
-        registerUser.setOnClickListener(this);
-        editName= findViewById(R.id.name);
-        editEmail = findViewById(R.id.email);
-        editPass = findViewById(R.id.password);
+        registerVolunteer= findViewById(R.id.sign_up_vol);
+       registerVolunteer.setOnClickListener(this);
+        editName= findViewById(R.id.name_vol);
+        editEmail = findViewById(R.id.email_vol);
+        editPass = findViewById(R.id.pass_vol);
 
-//        go_back_user.setOnClickListener(new View.OnClickListener() {
+//        go_back.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                onBackPressed();
 //            }
 //        });
     }
+
     @Override
     public void onClick(View view) {
-       switch (view.getId()){
-           case R.id.sign_up_user:
-               registerUser();
-               break;
-       }
+        switch (view.getId()){
+            case R.id.sign_up_vol:
+                registerUser();
+                break;
+        }
     }
+
     private void registerUser(){
         String name = editName.getEditText().getText().toString().trim();
         String email = editEmail.getEditText().getText().toString().trim();
@@ -84,22 +87,13 @@ public class SignUpUser extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    User user = new User(name,"user", email);
-                    FirebaseDatabase.getInstance().getReference("Users")
-                            .child(FirebaseAuth.getInstance().getUid())
-                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                Toast.makeText(SignUpUser.this, "User has been registered successfully!",Toast.LENGTH_LONG).show();
-                            }
-                            else{
-                                Toast.makeText(SignUpUser.this, "Registration failed",Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
+                    User user = new User(name,"volunteer", email);
+                    db= FirebaseDatabase.getInstance();
+                    reference=db.getReference("Users");
+                    reference.push().setValue(user);
+                    Toast.makeText(VolunteerSignup.this,"Registration Completed",Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(SignUpUser.this, "Registration failed",Toast.LENGTH_LONG).show();
+                    Toast.makeText(VolunteerSignup.this,task.getException().getLocalizedMessage(),Toast.LENGTH_SHORT).show();
                 }
             }
         });

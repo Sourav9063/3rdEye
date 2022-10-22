@@ -1,4 +1,4 @@
-package com.example.thirdeye;
+package com.example.thirdeye.user_registration;
 
 public class User {
     public String fullName,role,email;

@@ -1,4 +1,4 @@
-package com.example.thirdeye;
+package com.example.thirdeye.user_registration;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.thirdeye.R;
 
 public class SignUpOptions extends AppCompatActivity {
     private Button go_back_option, sign_up_options,sign_up_volunteer;

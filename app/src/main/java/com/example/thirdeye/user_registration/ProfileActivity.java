@@ -1,8 +1,10 @@
-package com.example.thirdeye;
+package com.example.thirdeye.user_registration;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.thirdeye.R;
 
 public class ProfileActivity extends AppCompatActivity {
 

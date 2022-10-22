@@ -9,12 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ThirdEye">
-        <activity android:name=".ProfileActivity"></activity>
-        <activity android:name=".SignInUser" />
-        <activity android:name=".SignUpUser" />
-        <activity android:name=".VolunteerSignup" />
-        <activity android:name=".SignUpOptions" />
-        <activity android:name=".SignUP" />
+        <activity android:name=".Home" android:label="Home"></activity>
+        <activity android:name=".user_registration.ProfileActivity" />
+        <activity android:name=".user_registration.SignInUser" />
+        <activity android:name=".user_registration.SignUpUser" />
+        <activity android:name=".user_registration.VolunteerSignup" />
+        <activity android:name=".user_registration.SignUpOptions" />
+        <activity android:name=".user_registration.SignUP" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
