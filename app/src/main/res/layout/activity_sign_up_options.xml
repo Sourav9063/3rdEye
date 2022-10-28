@@ -49,8 +49,8 @@
             android:id="@+id/textView2"
             android:layout_width="280sp"
             android:layout_height="wrap_content"
-            android:text="----------or-----------"
             android:layout_gravity="center_horizontal"
+            android:text="----------or-----------"
             android:textAlignment="center"
             android:textSize="20sp" />
 

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.thirdeye.Home;
 import com.example.thirdeye.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -67,7 +68,8 @@ public class SignInUser extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                  if(task.isSuccessful()){
-                      startActivity(new Intent(SignInUser.this, ProfileActivity.class));
+                      startActivity(new Intent(SignInUser.this, Home.class));
+                      Toast.makeText(SignInUser.this,"Welcome",Toast.LENGTH_SHORT).show();
                  }else{
                      Toast.makeText(SignInUser.this,"Failed to login! Please check your credentials",Toast.LENGTH_LONG).show();
                  }

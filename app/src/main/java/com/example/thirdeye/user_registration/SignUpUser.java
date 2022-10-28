@@ -3,12 +3,15 @@
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.thirdeye.Home;
+import com.example.thirdeye.MainActivity;
 import com.example.thirdeye.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -95,6 +98,7 @@ import java.lang.ref.Reference;
                     reference.push().setValue(user);
 
                     Toast.makeText(SignUpUser.this,"user registered succesfully",Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(SignUpUser.this, Home.class));
 
                 }
                 else

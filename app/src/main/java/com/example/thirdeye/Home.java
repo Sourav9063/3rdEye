@@ -7,8 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.thirdeye.user_registration.ProfileActivity;
-import com.example.thirdeye.user_registration.SignUpOptions;
+import com.example.thirdeye.sos.Sos_Page;
 
 public class Home extends AppCompatActivity {
     private Button sos;
@@ -23,7 +22,7 @@ public class Home extends AppCompatActivity {
         sos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Home.this, SignUpOptions.class));
+                startActivity(new Intent(Home.this, Sos_Page.class));
             }
         });
     }

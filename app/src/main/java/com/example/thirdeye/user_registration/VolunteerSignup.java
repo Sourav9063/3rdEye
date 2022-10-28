@@ -3,12 +3,14 @@ package com.example.thirdeye.user_registration;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.thirdeye.Home;
 import com.example.thirdeye.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -92,6 +94,7 @@ public class VolunteerSignup extends AppCompatActivity implements View.OnClickLi
                     reference=db.getReference("Volunteer");
                     reference.push().setValue(user);
                     Toast.makeText(VolunteerSignup.this,"Registration Completed",Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(VolunteerSignup.this, Home.class));
                 }else{
                     Toast.makeText(VolunteerSignup.this,task.getException().getLocalizedMessage(),Toast.LENGTH_SHORT).show();
                 }
