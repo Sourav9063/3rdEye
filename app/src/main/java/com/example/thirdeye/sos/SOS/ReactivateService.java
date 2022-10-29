@@ -10,7 +10,7 @@ public class ReactivateService extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("Check: ","Receiver Started");
+        Log.d("Check: ", "Receiver Started");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(new Intent(context, SensorService.class));
         } else {

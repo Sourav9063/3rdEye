@@ -15,7 +15,8 @@
             android:id="@+id/imageView4_sign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/layout1" />
+            app:srcCompat="@drawable/back"
+            android:clickable="true"/>
     </LinearLayout>
 
     <LinearLayout
@@ -112,20 +113,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="right">
-
-        <Button
-            android:id="@+id/go_back_sign"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:text="Go Back"
-            android:textAlignment="viewStart"
-            android:stateListAnimator="@null"
-            android:textColor="#A866B3"
-            android:textSize="18dp"
-            app:backgroundTint="#FFFFFF" />
 
         <ImageView
             android:id="@+id/imageView5_sign"

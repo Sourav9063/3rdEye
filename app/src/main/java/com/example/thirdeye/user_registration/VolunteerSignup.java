@@ -21,15 +21,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class VolunteerSignup extends AppCompatActivity implements View.OnClickListener{
-    private Button go_back,registerVolunteer;
+    private Button registerVolunteer;
     private FirebaseAuth mAuth;
     private TextInputLayout editName, editEmail, editPass;
     FirebaseDatabase db;
     DatabaseReference reference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(getSupportActionBar()!= null)
+        {
+            getSupportActionBar().hide();
+        }
         setContentView(R.layout.activity_volunteer_signup);
-        go_back=findViewById(R.id.go_back_vol);
+//        go_back=findViewById(R.id.go_back_vol);
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         registerVolunteer= findViewById(R.id.sign_up_vol);
