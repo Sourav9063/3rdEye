@@ -24,15 +24,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.lang.ref.Reference;
 
  public class SignUpUser extends AppCompatActivity implements View.OnClickListener {
-    private Button go_back_user,registerUser;
+    private Button registerUser;
     private FirebaseAuth mAuth;
     private TextInputLayout editName, editEmail, editPass;
     FirebaseDatabase db;
     DatabaseReference reference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(getSupportActionBar()!= null)
+        {
+            getSupportActionBar().hide();
+        }
         setContentView(R.layout.activity_sign_up_user);
-        go_back_user=findViewById(R.id.go_back_user);
+//        go_back_user=findViewById(R.id.back_button);
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         registerUser= findViewById(R.id.sign_up_user);

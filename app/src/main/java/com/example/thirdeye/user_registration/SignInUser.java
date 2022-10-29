@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SignInUser extends AppCompatActivity implements View.OnClickListener{
     private Button signIn;
@@ -27,6 +28,10 @@ public class SignInUser extends AppCompatActivity implements View.OnClickListene
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(getSupportActionBar()!= null)
+        {
+            getSupportActionBar().hide();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_user);
         signIn = findViewById(R.id.sign_in_sign);
@@ -35,6 +40,12 @@ public class SignInUser extends AppCompatActivity implements View.OnClickListene
         loginEmail = findViewById(R.id.emailLogin);
         loginPass= findViewById(R.id.passwordLogin);
         mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user!= null)
+        {
+            startActivity(new Intent(SignInUser.this,Home.class));
+            finish();
+        }
     }
 
     @Override

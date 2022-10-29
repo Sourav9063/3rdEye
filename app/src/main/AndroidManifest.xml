@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.thirdeye">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -35,22 +36,24 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity
-            android:name=".Home"
-            android:label="Home" />
+        <activity android:name=".Home" />
         <activity android:name=".user_registration.ProfileActivity" />
         <activity android:name=".user_registration.SignInUser" />
         <activity android:name=".user_registration.SignUpUser" />
         <activity android:name=".user_registration.VolunteerSignup" />
         <activity android:name=".user_registration.SignUpOptions" />
         <activity android:name=".user_registration.SignUP" />
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            >
+        <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

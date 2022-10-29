@@ -14,6 +14,10 @@ public class MainActivity extends AppCompatActivity {
     private Button move;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(getSupportActionBar()!= null)
+        {
+            getSupportActionBar().hide();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         move=findViewById(R.id.Move);
@@ -21,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 startActivity(new Intent(MainActivity.this,SignUP.class));
+                finish();
 
             }
         },1000);

@@ -40,7 +40,7 @@ public class SensorService extends Service {
     private Sensor mAccelerometer;
     private ShakeDetector mShakeDetector;
 
-    public SensorService(){
+    public SensorService() {
     }
 
     @Override
@@ -77,7 +77,7 @@ public class SensorService extends Service {
             @Override
             public void onShake(int count) {
                 //check if the user has shaked the phone for 3 time in a row
-                if(count==3) {
+                if (count == 3) {
                     //vibrate the phone
                     vibrate();
 
@@ -90,6 +90,7 @@ public class SensorService extends Service {
                         public boolean isCancellationRequested() {
                             return false;
                         }
+
                         @NonNull
                         @Override
                         public CancellationToken onCanceledRequested(@NonNull OnTokenCanceledListener onTokenCanceledListener) {
@@ -100,24 +101,24 @@ public class SensorService extends Service {
                         public void onSuccess(Location location) {
                             //check if location is null
                             //for both the cases we will create different messages
-                            if(location!=null){
+                            if (location != null) {
 
                                 //get the SMSManager
                                 SmsManager smsManager = SmsManager.getDefault();
                                 //get the list of all the contacts in Database
-                                DBhelper db=new DBhelper(SensorService.this);
-                                List<Contact> list=db.getAllContacts();
+                                DBhelper db = new DBhelper(SensorService.this);
+                                List<Contact> list = db.getAllContacts();
                                 //send SMS to each contact
-                                for(Contact c: list){
-                                    String message = "Hey, "+c.getName()+"I am in DANGER, i need help. Please urgently reach me out. Here are my coordinates.\n "+"http://maps.google.com/?q=" + location.getLatitude() + "," + location.getLongitude();
+                                for (Contact c : list) {
+                                    String message = "Hey, " + c.getName() + ". I am in DANGER, i need help. Please urgently reach me out. Here are my coordinates.\n " + "http://maps.google.com/?q=" + location.getLatitude() + "," + location.getLongitude();
                                     smsManager.sendTextMessage(c.getPhoneNo(), null, message, null, null);
                                 }
-                            }else{
-                                String message= "I am in DANGER, i need help. Please urgently reach me out.\n"+"GPS was turned off.Couldn't find location. Call your nearest Police Station.";
+                            } else {
+                                String message = "I am in DANGER, i need help. Please urgently reach me out.\n" + "GPS was turned off.Couldn't find location. Call your nearest Police Station.";
                                 SmsManager smsManager = SmsManager.getDefault();
-                                DBhelper db=new DBhelper(SensorService.this);
-                                List<Contact> list=db.getAllContacts();
-                                for(Contact c: list){
+                                DBhelper db = new DBhelper(SensorService.this);
+                                List<Contact> list = db.getAllContacts();
+                                for (Contact c : list) {
                                     smsManager.sendTextMessage(c.getPhoneNo(), null, message, null, null);
                                 }
                             }
@@ -125,14 +126,15 @@ public class SensorService extends Service {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.d("Check: ","OnFailure");
-                            String message= "I am in DANGER, i need help. Please urgently reach me out.\n"+"GPS was turned off.Couldn't find location. Call your nearest Police Station.";
+                            Log.d("Check: ", "OnFailure");
+                            String message = "I am in DANGER, i need help. Please urgently reach me out.\n" + "GPS was turned off.Couldn't find location. Call your nearest Police Station.";
                             SmsManager smsManager = SmsManager.getDefault();
-                            DBhelper db=new DBhelper(SensorService.this);
-                            List<Contact> list=db.getAllContacts();
-                            for(Contact c: list){
+                            DBhelper db = new DBhelper(SensorService.this);
+                            List<Contact> list = db.getAllContacts();
+                            for (Contact c : list) {
                                 smsManager.sendTextMessage(c.getPhoneNo(), null, message, null, null);
-                            } }
+                            }
+                        }
                     });
 
                 }
@@ -145,18 +147,17 @@ public class SensorService extends Service {
 
     //method to vibrate the phone
     @SuppressLint("MissingPermission")
-    public void vibrate(){
+    public void vibrate() {
         final Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         VibrationEffect vibEff;
         //Android Q and above have some predefined vibrating patterns
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            vibEff=VibrationEffect.createPredefined(VibrationEffect.EFFECT_DOUBLE_CLICK);
+            vibEff = VibrationEffect.createPredefined(VibrationEffect.EFFECT_DOUBLE_CLICK);
             vibrator.cancel();
             vibrator.vibrate(vibEff);
-        }else{
+        } else {
             vibrator.vibrate(500);
         }
-
 
 
     }
@@ -166,8 +167,7 @@ public class SensorService extends Service {
     // implemented strict notification rules, which require us to identify
     // our own notification channel in order to view them correctly.
     @RequiresApi(Build.VERSION_CODES.O)
-    private void startMyOwnForeground()
-    {
+    private void startMyOwnForeground() {
         String NOTIFICATION_CHANNEL_ID = "example.permanence";
         String channelName = "Background Service";
         NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_MIN);
