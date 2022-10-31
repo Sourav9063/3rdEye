@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.thirdeye.Home;
@@ -24,6 +25,7 @@ public class VolunteerSignup extends AppCompatActivity implements View.OnClickLi
     private Button registerVolunteer;
     private FirebaseAuth mAuth;
     private TextInputLayout editName, editEmail, editPass;
+    private ImageButton back;
     FirebaseDatabase db;
     DatabaseReference reference;
     @Override
@@ -41,13 +43,14 @@ public class VolunteerSignup extends AppCompatActivity implements View.OnClickLi
         editName= findViewById(R.id.name_vol);
         editEmail = findViewById(R.id.email_vol);
         editPass = findViewById(R.id.pass_vol);
+        back=(ImageButton)findViewById(R.id.back_button);
 
-//        go_back.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                onBackPressed();
-//            }
-//        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.thirdeye.Home;
@@ -23,6 +24,7 @@ public class SignInUser extends AppCompatActivity implements View.OnClickListene
     private Button signIn;
     private TextInputLayout loginEmail,loginPass;
     private FirebaseAuth mAuth;
+    private ImageButton back;
 
 
 
@@ -40,13 +42,21 @@ public class SignInUser extends AppCompatActivity implements View.OnClickListene
         loginEmail = findViewById(R.id.emailLogin);
         loginPass= findViewById(R.id.passwordLogin);
         mAuth = FirebaseAuth.getInstance();
+        back=(ImageButton)findViewById(R.id.back_button);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user!= null)
         {
             startActivity(new Intent(SignInUser.this,Home.class));
             finish();
         }
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
+
 
     @Override
     public void onClick(View view) {
