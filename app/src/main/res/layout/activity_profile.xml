@@ -15,4 +15,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_baseline_keyboard_backspace_24"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="5dp"
+        tools:ignore="VectorDrawableCompat"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
