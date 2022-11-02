@@ -10,4 +10,16 @@ public class User {
         this.email=email;
         this.role=role;
     }
+    public String getRole(){
+        return role;
+    }
+    public void setRole(){
+        this.role=role;
+    }
+    public String getFullName(){
+        return fullName;
+    }
+    public void setFullName(){
+        this.fullName=fullName;
+    }
 }
