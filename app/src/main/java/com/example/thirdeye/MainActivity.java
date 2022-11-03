@@ -22,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
     private int IGNORE_BATTERY_OPTIMIZATION_REQUEST = 1002;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(getSupportActionBar()!= null)
+        {
+            getSupportActionBar().hide();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         move=findViewById(R.id.Move);

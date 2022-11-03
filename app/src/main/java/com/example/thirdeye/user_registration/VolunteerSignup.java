@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.thirdeye.Home;
@@ -24,16 +25,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class VolunteerSignup extends AppCompatActivity implements View.OnClickListener{
-    private Button go_back,registerVolunteer;
+    private Button registerVolunteer;
     private FirebaseAuth mAuth;
     private TextInputLayout editName, editEmail, editPass;
+    private ImageButton back;
     FirebaseDatabase db;
     DatabaseReference reference;
     private PreferenceManager preferenceManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(getSupportActionBar()!= null)
+        {
+            getSupportActionBar().hide();
+        }
         setContentView(R.layout.activity_volunteer_signup);
-        go_back=findViewById(R.id.go_back_vol);
+//        go_back=findViewById(R.id.go_back_vol);
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         registerVolunteer= findViewById(R.id.sign_up_vol);
@@ -41,13 +47,19 @@ public class VolunteerSignup extends AppCompatActivity implements View.OnClickLi
         editName= findViewById(R.id.name_vol);
         editEmail = findViewById(R.id.email_vol);
         editPass = findViewById(R.id.pass_vol);
+
         preferenceManager = new PreferenceManager(getApplicationContext());
-//        go_back.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                onBackPressed();
-//            }
-//        });
+
+        back=(ImageButton)findViewById(R.id.back_button_4);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent2 = new Intent(VolunteerSignup.this, SignUpOptions.class);
+                VolunteerSignup.this.startActivity(intent2);
+            }
+        });
+
     }
 
     @Override

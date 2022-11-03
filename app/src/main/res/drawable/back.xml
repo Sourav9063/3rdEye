@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/layout1"/>
+    <item android:drawable="@drawable/ic_baseline_keyboard_backspace_24"
+        android:height="35dp"
+        android:width="30dp"
+        android:top="10dp"
+        android:left="10dp"
+        android:start="10dp"
+        android:id="@+id/back_button"
+        />
+
+
+</layer-list>

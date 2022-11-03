@@ -9,6 +9,7 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.thirdeye.Home;
@@ -28,17 +29,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.lang.ref.Reference;
 
  public class SignUpUser extends AppCompatActivity implements View.OnClickListener {
-    private Button go_back_user,registerUser;
+    private Button registerUser;
     private FirebaseAuth mAuth;
     private TextInputLayout editName, editEmail, editPass;
+    private ImageButton back;
     FirebaseDatabase db;
     DatabaseReference reference;
      private PreferenceManager preferenceManager;
 
      @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(getSupportActionBar()!= null)
+        {
+            getSupportActionBar().hide();
+        }
         setContentView(R.layout.activity_sign_up_user);
-        go_back_user=findViewById(R.id.go_back_user);
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         registerUser= findViewById(R.id.sign_up_user);
@@ -46,6 +51,15 @@ import java.lang.ref.Reference;
         editName= findViewById(R.id.name);
         editEmail = findViewById(R.id.email);
         editPass = findViewById(R.id.password);
+        back=(ImageButton)findViewById(R.id.back_button_3);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignUpUser.this, SignUpOptions.class);
+                SignUpUser.this.startActivity(intent);
+            }
+        });
+
 
         preferenceManager = new PreferenceManager(getApplicationContext());
 //        go_back_user.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +68,7 @@ import java.lang.ref.Reference;
 //                onBackPressed();
 //            }
 //        });
+
     }
     @Override
     public void onClick(View view) {
@@ -63,6 +78,8 @@ import java.lang.ref.Reference;
                break;
        }
     }
+
+
     private void registerUser(){
         String name = editName.getEditText().getText().toString().trim();
         String email = editEmail.getEditText().getText().toString().trim();

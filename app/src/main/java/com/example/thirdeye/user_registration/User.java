@@ -13,4 +13,16 @@ public class User implements Serializable {
         this.role=role;
         this.token = token;
     }
+    public String getRole(){
+        return role;
+    }
+    public void setRole(){
+        this.role=role;
+    }
+    public String getFullName(){
+        return fullName;
+    }
+    public void setFullName(){
+        this.fullName=fullName;
+    }
 }

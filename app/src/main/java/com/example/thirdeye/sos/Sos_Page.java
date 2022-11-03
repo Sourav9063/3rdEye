@@ -52,6 +52,10 @@ public class Sos_Page extends AppCompatActivity {
     ContactAdapter contactAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(getSupportActionBar()!= null)
+        {
+            getSupportActionBar().hide();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sos_page);
 
