@@ -64,24 +64,34 @@
 
         <Button
             android:id="@+id/tri_sos"
-            android:layout_width="300sp"
+            android:layout_width="200sp"
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle"
             android:backgroundTint="#9C27B0"
             android:text="SOS"
             android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/tri_video"
-            android:layout_width="300sp"
+            android:layout_width="200sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/rectangle"
             android:backgroundTint="#9C27B0"
             android:text="VIDEO"
             android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
+        <Button
+            android:id="@+id/tri_obstacle"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rectangle"
+            android:backgroundTint="#9C27B0"
+            android:text="Obstacle "
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
 
 
     </LinearLayout>
