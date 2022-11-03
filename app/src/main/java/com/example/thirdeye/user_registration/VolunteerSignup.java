@@ -12,11 +12,14 @@ import android.widget.Toast;
 
 import com.example.thirdeye.Home;
 import com.example.thirdeye.R;
+import com.example.thirdeye.utilities.Constants;
+import com.example.thirdeye.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -26,6 +29,7 @@ public class VolunteerSignup extends AppCompatActivity implements View.OnClickLi
     private TextInputLayout editName, editEmail, editPass;
     FirebaseDatabase db;
     DatabaseReference reference;
+    private PreferenceManager preferenceManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_volunteer_signup);
@@ -37,7 +41,7 @@ public class VolunteerSignup extends AppCompatActivity implements View.OnClickLi
         editName= findViewById(R.id.name_vol);
         editEmail = findViewById(R.id.email_vol);
         editPass = findViewById(R.id.pass_vol);
-
+        preferenceManager = new PreferenceManager(getApplicationContext());
 //        go_back.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -89,10 +93,17 @@ public class VolunteerSignup extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    User user = new User(name,"volunteer", email);
+                    User user = new User(name,"volunteer", email,null);
                     db= FirebaseDatabase.getInstance();
                     reference=db.getReference("Volunteer");
-                    reference.push().setValue(user);
+
+                    FirebaseUser newUser = task.getResult().getUser();
+                    reference.child(newUser.getUid()).setValue(user);
+                    preferenceManager.putString(Constants.KEY_USER_ID, newUser.getUid());
+                    preferenceManager.putString(Constants.KEY_ROLE,"volunteer");
+                    preferenceManager.putBoolean(Constants.KEY_SIGNED_IN,true);
+                    preferenceManager.putString(Constants.KEY_USERNAME, name);
+                    preferenceManager.putString(Constants.KEY_EMAIL, email);
                     Toast.makeText(VolunteerSignup.this,"Registration Completed",Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(VolunteerSignup.this, Home.class));
                 }else{

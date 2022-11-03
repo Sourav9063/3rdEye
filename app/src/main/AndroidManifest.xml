@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -22,8 +23,32 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ThirdEye">
-        <activity android:name=".sos.Sos_Page"></activity>
+        android:theme="@style/Theme.ThirdEye"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".video_meeting.OutgoingCallActivity"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".video_meeting.IncomingCallActivity"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".video_meeting.AllUserActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity android:name=".sos.Sos_Page" />
 
         <receiver
             android:name=".sos.SOS.ReactivateService"
@@ -44,13 +69,23 @@
         <activity android:name=".user_registration.VolunteerSignup" />
         <activity android:name=".user_registration.SignUpOptions" />
         <activity android:name=".user_registration.SignUP" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".firebase.MessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

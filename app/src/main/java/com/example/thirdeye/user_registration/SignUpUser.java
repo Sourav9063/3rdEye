@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -13,11 +14,14 @@ import android.widget.Toast;
 import com.example.thirdeye.Home;
 import com.example.thirdeye.MainActivity;
 import com.example.thirdeye.R;
+import com.example.thirdeye.utilities.Constants;
+import com.example.thirdeye.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -29,7 +33,9 @@ import java.lang.ref.Reference;
     private TextInputLayout editName, editEmail, editPass;
     FirebaseDatabase db;
     DatabaseReference reference;
-    @Override
+     private PreferenceManager preferenceManager;
+
+     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_sign_up_user);
         go_back_user=findViewById(R.id.go_back_user);
@@ -41,7 +47,7 @@ import java.lang.ref.Reference;
         editEmail = findViewById(R.id.email);
         editPass = findViewById(R.id.password);
 
-
+        preferenceManager = new PreferenceManager(getApplicationContext());
 //        go_back_user.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -92,12 +98,19 @@ import java.lang.ref.Reference;
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    User user = new User(name,"user", email);
+                    User user = new User(name,"user", email, null);
                     db= FirebaseDatabase.getInstance();
                     reference= db.getReference("Users");
-                    reference.push().setValue(user);
 
-                    Toast.makeText(SignUpUser.this,"user registered succesfully",Toast.LENGTH_SHORT).show();
+                    FirebaseUser newUser = task.getResult().getUser();
+                    reference.child(newUser.getUid()).setValue(user);
+                    preferenceManager.putString(Constants.KEY_USER_ID, newUser.getUid());
+                    Log.d("user",newUser.getUid().toString());
+                    preferenceManager.putString(Constants.KEY_ROLE,"user");
+                    preferenceManager.putBoolean(Constants.KEY_SIGNED_IN,true);
+                    preferenceManager.putString(Constants.KEY_USERNAME, name);
+                    preferenceManager.putString(Constants.KEY_EMAIL, email);
+                    Toast.makeText(SignUpUser.this,"user registered successfully",Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(SignUpUser.this, Home.class));
 
                 }
