@@ -15,13 +15,13 @@
             android:id="@+id/imageView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/back" />
+            android:src="@drawable/back" />
 
         <ImageButton
-            android:id="@+id/back_button"
+            android:id="@+id/back_button_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_baseline_keyboard_backspace_24"
+            android:src="@drawable/ic_baseline_keyboard_backspace_24"
             tools:ignore="VectorDrawableCompat" />
     </RelativeLayout>
 

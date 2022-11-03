@@ -1,6 +1,7 @@
 package com.example.thirdeye;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -16,7 +17,10 @@ import android.widget.Toast;
 
 import com.example.thirdeye.sos.Sos_Page;
 import com.example.thirdeye.user_registration.ProfileActivity;
+import com.example.thirdeye.user_registration.SignInUser;
 import com.example.thirdeye.user_registration.SignUP;
+import com.example.thirdeye.user_registration.VolunteerSignup;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
@@ -25,6 +29,7 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
     private ImageButton menu;
     private FirebaseAuth mAuth;
     private ImageButton back;
+    private Button volButton;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -40,7 +45,13 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         menu= (ImageButton) findViewById(R.id.menu_button);
         mAuth=FirebaseAuth.getInstance();
         back=(ImageButton)findViewById(R.id.back_button);
-
+        volButton=findViewById(R.id.volu_sign);
+        volButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Home.this, VolunteerSignup.class));
+            }
+        });
         sos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +61,7 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                startActivity(new Intent(Home.this, SignInUser.class));
             }
         });
     }
