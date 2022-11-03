@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.thirdeye.Home;
+import com.example.thirdeye.MainActivity;
 import com.example.thirdeye.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,7 +31,7 @@ public class SignUP extends AppCompatActivity {
         sign_in = findViewById(R.id.sign_in);
         sign_up = findViewById(R.id.sign_up);
         mAuth = FirebaseAuth.getInstance();
-        back=(ImageButton)findViewById(R.id.back_button);
+        back=(ImageButton)findViewById(R.id.back_button_1);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user!= null)
         {
@@ -54,7 +55,8 @@ public class SignUP extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                Intent intent = new Intent(SignUP.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }

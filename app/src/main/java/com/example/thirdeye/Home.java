@@ -1,6 +1,7 @@
 package com.example.thirdeye;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -16,7 +17,9 @@ import android.widget.Toast;
 
 import com.example.thirdeye.sos.Sos_Page;
 import com.example.thirdeye.user_registration.ProfileActivity;
+import com.example.thirdeye.user_registration.SignInUser;
 import com.example.thirdeye.user_registration.SignUP;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
@@ -50,7 +53,7 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                startActivity(new Intent(Home.this, SignInUser.class));
             }
         });
     }

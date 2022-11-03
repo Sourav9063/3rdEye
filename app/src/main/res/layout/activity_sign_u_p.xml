@@ -18,7 +18,7 @@
             app:srcCompat="@drawable/back" />
 
         <ImageButton
-            android:id="@+id/back_button"
+            android:id="@+id/back_button_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_baseline_keyboard_backspace_24"

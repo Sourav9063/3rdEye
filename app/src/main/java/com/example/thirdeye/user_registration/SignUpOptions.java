@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.example.thirdeye.MainActivity;
 import com.example.thirdeye.R;
 
 public class SignUpOptions extends AppCompatActivity {
@@ -26,7 +27,7 @@ public class SignUpOptions extends AppCompatActivity {
 
         sign_up_options = findViewById(R.id.sign_up_user);
         sign_up_volunteer = findViewById(R.id.button8);
-        back= (ImageButton)findViewById(R.id.back_button);
+        back= (ImageButton)findViewById(R.id.back_button_2);
         sign_up_volunteer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,7 +49,10 @@ public class SignUpOptions extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+//                Intent intent7 = new Intent(SignUpOptions.this, VolunteerSignup.class);
+//                startActivity(intent7);
+                Intent intent2 = new Intent(SignUpOptions.this, SignUP.class);
+                SignUpOptions.this.startActivity(intent2);
             }
         });
 //

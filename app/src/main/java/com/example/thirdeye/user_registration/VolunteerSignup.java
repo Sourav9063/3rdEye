@@ -43,12 +43,13 @@ public class VolunteerSignup extends AppCompatActivity implements View.OnClickLi
         editName= findViewById(R.id.name_vol);
         editEmail = findViewById(R.id.email_vol);
         editPass = findViewById(R.id.pass_vol);
-        back=(ImageButton)findViewById(R.id.back_button);
+        back=(ImageButton)findViewById(R.id.back_button_4);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                Intent intent2 = new Intent(VolunteerSignup.this, SignUpOptions.class);
+                VolunteerSignup.this.startActivity(intent2);
             }
         });
     }

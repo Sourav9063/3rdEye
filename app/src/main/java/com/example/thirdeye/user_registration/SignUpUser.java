@@ -38,7 +38,6 @@ import java.lang.ref.Reference;
             getSupportActionBar().hide();
         }
         setContentView(R.layout.activity_sign_up_user);
-//        go_back_user=findViewById(R.id.back_button);
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         registerUser= findViewById(R.id.sign_up_user);
@@ -46,16 +45,15 @@ import java.lang.ref.Reference;
         editName= findViewById(R.id.name);
         editEmail = findViewById(R.id.email);
         editPass = findViewById(R.id.password);
-        back=(ImageButton)findViewById(R.id.back_button);
+        back=(ImageButton)findViewById(R.id.back_button_3);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                Intent intent = new Intent(SignUpUser.this, SignUpOptions.class);
+                SignUpUser.this.startActivity(intent);
             }
         });
 
-
-//
     }
     @Override
     public void onClick(View view) {
@@ -65,6 +63,8 @@ import java.lang.ref.Reference;
                break;
        }
     }
+
+
     private void registerUser(){
         String name = editName.getEditText().getText().toString().trim();
         String email = editEmail.getEditText().getText().toString().trim();
