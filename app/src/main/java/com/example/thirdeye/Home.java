@@ -159,15 +159,15 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                     {
                         Intent intent = new Intent(Home.this, AllUserActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.putExtra("Text Detection", true);
+                        intent.putExtra("All user", true);
                         startActivity(intent);
                         finish();
                     }
-                    else if(result.contains("sos"))
+                    else if(result.contains("emergency"))
                     {
                         Intent intent = new Intent(Home.this, Sos_Page.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.putExtra("Text Detection", true);
+                        intent.putExtra("sos", true);
                         startActivity(intent);
                         finish();
                     }
@@ -317,5 +317,6 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         }
         return super.onOptionsItemSelected(menuItem);
     }
+
 
 }

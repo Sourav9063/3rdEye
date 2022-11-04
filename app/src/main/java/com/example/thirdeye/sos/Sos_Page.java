@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.ContactsContract;
 import android.provider.Settings;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,8 +32,11 @@ import com.example.thirdeye.sos.Contacts.ContactAdapter;
 import com.example.thirdeye.sos.Contacts.DBhelper;
 import com.example.thirdeye.sos.SOS.ReactivateService;
 import com.example.thirdeye.sos.SOS.SensorService;
+import com.example.thirdeye.video_meeting.AllUserActivity;
+import com.example.thirdeye.video_meeting.OutgoingCallActivity;
 
 import java.util.List;
+import java.util.Locale;
 
 
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +54,25 @@ public class Sos_Page extends AppCompatActivity {
     DBhelper db;
     List<Contact> list;
     ContactAdapter contactAdapter;
+    private TextToSpeech textToSpeech;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if(getSupportActionBar()!= null)
         {
             getSupportActionBar().hide();
         }
+
         super.onCreate(savedInstanceState);
+        textToSpeech = new TextToSpeech(Sos_Page.this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if(i!=TextToSpeech.ERROR)
+                {
+                    textToSpeech.setLanguage(Locale.ENGLISH);
+                    textToSpeech.speak("SOS Service",TextToSpeech.QUEUE_FLUSH,null);
+                }
+            }
+        });
         setContentView(R.layout.activity_sos_page);
 
         //check for runtime permissions
