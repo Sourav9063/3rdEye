@@ -69,6 +69,7 @@ public class TextDetectionActivity extends AppCompatActivity {
                 if(i!=TextToSpeech.ERROR)
                 {
                     textToSpeech.setLanguage(Locale.ENGLISH);
+                    textToSpeech.speak("Detecting text",TextToSpeech.QUEUE_FLUSH,null);
                 }
             }
         });

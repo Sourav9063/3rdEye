@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -21,16 +22,28 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AllUserActivity extends AppCompatActivity implements UserListener {
    private List<User> users;
    private UsersAdapter usersAdapter;
     FirebaseDatabase db;
     DatabaseReference reference;
+    private TextToSpeech textToSpeech;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_user);
+        textToSpeech = new TextToSpeech(AllUserActivity.this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if(i!=TextToSpeech.ERROR)
+                {
+                    textToSpeech.setLanguage(Locale.ENGLISH);
+                    textToSpeech.speak("Volunteer Service",TextToSpeech.QUEUE_FLUSH,null);
+                }
+            }
+        });
         RecyclerView userRecyclerView = findViewById(R.id.userRecyclerView);
         users = new ArrayList<>();
         usersAdapter = new UsersAdapter(users,this);
