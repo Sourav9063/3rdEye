@@ -2,33 +2,22 @@ package com.example.thirdeye;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
-import android.os.PowerManager;
-import android.provider.Settings;
-
 import android.speech.tts.TextToSpeech;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import com.example.thirdeye.sos.Sos_Page;
 
@@ -48,7 +37,6 @@ import com.example.thirdeye.user_registration.ProfileActivity;
 import com.example.thirdeye.user_registration.SignInUser;
 import com.example.thirdeye.user_registration.SignUP;
 import com.example.thirdeye.user_registration.VolunteerSignup;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
@@ -57,6 +45,7 @@ import android.speech.SpeechRecognizer;
 public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     private Button sos;
     private Button video;
+    private Button obstacleButton;
     private PreferenceManager preferenceManager;
     FirebaseDatabase db;
     DatabaseReference UserReference, VolunteerReference;
@@ -95,7 +84,14 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         back=(ImageButton)findViewById(R.id.back_button);
         volButton=findViewById(R.id.volu_sign);
         mic = findViewById(R.id.mic);
+        obstacleButton=findViewById(R.id.obstacle);
+
+        obstacleButton.setOnClickListener(new MyOwnListener());
         //speech
+
+        //obstacle
+
+
         ActivityCompat.requestPermissions(this, new String[]{RECORD_AUDIO}, PackageManager.PERMISSION_GRANTED);
         intentRecognizer = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intentRecognizer.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -106,7 +102,7 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                 if(i!=TextToSpeech.ERROR)
                 {
                     textToSpeech.setLanguage(Locale.ENGLISH);
-                    String text = "Hello, Hope you are doing fine. Tap on Screen and Speak Text, Volunteer or Emergency to get Service.";
+                    String text = "Hello, Hope you are doing fine. Tap on the upper middle Screen and Speak Text, Volunteer or Emergency to get Service.";
                     textToSpeech.speak(text,TextToSpeech.QUEUE_FLUSH,null);
                 }
             }
@@ -170,6 +166,12 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                         intent.putExtra("sos", true);
                         startActivity(intent);
                         finish();
+                    }
+                    else if(result.contains("obstacle")){
+                        openObstacle();
+                    }
+                    else{
+                        textToSpeech.speak("Please try again",TextToSpeech.QUEUE_FLUSH,null);
                     }
 
                 }
@@ -318,5 +320,34 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         return super.onOptionsItemSelected(menuItem);
     }
 
+    public class MyOwnListener implements View.OnClickListener
+    {
+        // ...
 
+        @Override
+        public void onClick(View v)
+        {
+          openObstacle();
+
+//      Intent intent =new Intent("org.tensorflow.lite.examples.objectdetection.activities.MainActivity");
+//      startActivity(intent);
+
+        }
+    }
+
+    void openObstacle(){
+        System.out.println("Button clicked//////////////////////////////////////////////////////////////////////////////////////////////////////////");
+        String packageName = "org.tensorflow.lite.examples.classification";
+        Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
+        if(intent != null) {
+            System.out.println("Button clicked//////////////////////////////////////////////////////////////////////////////////////////////////////////");
+            startActivity(intent);
+
+        }
+        else {
+            Intent intent2 = new Intent(Intent.ACTION_VIEW , Uri.parse("https://github.com/Sourav9063/obstacles_detection/releases/download/test/app-support-debug.apk"));
+            startActivity(intent2);
+        }
+
+    }
 }
