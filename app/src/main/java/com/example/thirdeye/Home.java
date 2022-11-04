@@ -1,12 +1,16 @@
 package com.example.thirdeye;
 
+import static android.Manifest.permission.RECORD_AUDIO;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +18,7 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
 
+import android.speech.tts.TextToSpeech;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
@@ -34,6 +40,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
 
 import com.example.thirdeye.user_registration.ProfileActivity;
@@ -42,7 +50,9 @@ import com.example.thirdeye.user_registration.SignUP;
 import com.example.thirdeye.user_registration.VolunteerSignup;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 
 public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     private Button sos;
@@ -55,8 +65,12 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
     private ImageButton menu;
     private FirebaseAuth mAuth;
     private ImageButton back;
+    private ImageButton mic;
     private Button volButton;
     private Button textDetection;
+    private SpeechRecognizer speechRecognizer;
+    private Intent intentRecognizer;
+    private TextToSpeech textToSpeech;
 
 
     @SuppressLint("MissingInflatedId")
@@ -77,10 +91,101 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         sos=(Button)findViewById(R.id.tri_sos);
         textDetection=(Button)findViewById(R.id.tri_text);
         menu= (ImageButton) findViewById(R.id.menu_button);
-
         mAuth=FirebaseAuth.getInstance();
         back=(ImageButton)findViewById(R.id.back_button);
         volButton=findViewById(R.id.volu_sign);
+        mic = findViewById(R.id.mic);
+        //speech
+        ActivityCompat.requestPermissions(this, new String[]{RECORD_AUDIO}, PackageManager.PERMISSION_GRANTED);
+        intentRecognizer = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intentRecognizer.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+        textToSpeech = new TextToSpeech(Home.this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if(i!=TextToSpeech.ERROR)
+                {
+                    textToSpeech.setLanguage(Locale.ENGLISH);
+                    String text = "Hello, Hope you are doing fine. Tap on Screen and Speak Text, Volunteer or Emergency to get Service.";
+                    textToSpeech.speak(text,TextToSpeech.QUEUE_FLUSH,null);
+                }
+            }
+        });
+        speechRecognizer.setRecognitionListener(new RecognitionListener() {
+            @Override
+            public void onReadyForSpeech(Bundle bundle) {
+
+            }
+
+            @Override
+            public void onBeginningOfSpeech() {
+
+            }
+
+            @Override
+            public void onRmsChanged(float v) {
+
+            }
+
+            @Override
+            public void onBufferReceived(byte[] bytes) {
+
+            }
+
+            @Override
+            public void onEndOfSpeech() {
+
+            }
+
+            @Override
+            public void onError(int i) {
+
+            }
+
+            @Override
+            public void onResults(Bundle bundle) {
+                ArrayList<String> data = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+                String result = "";
+                if (data != null) {
+                    result = data.get(0);
+                    if(result.contains("text")) {
+                        Intent intent = new Intent(Home.this, TextDetectionActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("Text Detection", true);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else if(result.contains("volunteer"))
+                    {
+                        Intent intent = new Intent(Home.this, AllUserActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("Text Detection", true);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else if(result.contains("sos"))
+                    {
+                        Intent intent = new Intent(Home.this, Sos_Page.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("Text Detection", true);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onPartialResults(Bundle bundle) {
+
+            }
+
+            @Override
+            public void onEvent(int i, Bundle bundle) {
+
+            }
+        });
         volButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,6 +213,13 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         });
         textDetection.setOnClickListener(view -> {
             startActivity(new Intent(Home.this, TextDetectionActivity.class));
+        });
+        mic.setOnClickListener(view -> {
+            if(textToSpeech.isSpeaking()== false) {
+                //textView.setText(String.valueOf(textToSpeech.isSpeaking()) );
+                speechRecognizer.startListening(intentRecognizer);
+            }
+
         });
 
         FirebaseMessaging.getInstance ().getToken ()

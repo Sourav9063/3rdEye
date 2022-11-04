@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -33,6 +34,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.util.Locale;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -45,6 +47,7 @@ public class OutgoingCallActivity extends AppCompatActivity{
     private PreferenceManager preferenceManager;
     String meetingRoom = null;
     MediaPlayer ringing;
+    private TextToSpeech textToSpeech;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +68,17 @@ public class OutgoingCallActivity extends AppCompatActivity{
             textUsername.setText(user.fullName);
             textEmail.setText(user.email);
         }
+        textToSpeech = new TextToSpeech(OutgoingCallActivity.this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if(i!=TextToSpeech.ERROR)
+                {
+                    textToSpeech.setLanguage(Locale.ENGLISH);
+                    String text = "Calling "+ user.fullName;
+                    textToSpeech.speak(text,TextToSpeech.QUEUE_FLUSH,null);
+                }
+            }
+        });
         rejectCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,6 +103,8 @@ public class OutgoingCallActivity extends AppCompatActivity{
                     }
                 });
      ringing.start();
+
+
 
     }
     private  void initiateMeeting(String receiverToken)

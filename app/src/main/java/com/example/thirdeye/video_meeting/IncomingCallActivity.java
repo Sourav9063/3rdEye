@@ -28,17 +28,22 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import android.speech.tts.TextToSpeech;
 
 public class IncomingCallActivity extends AppCompatActivity {
     MediaPlayer ringtone;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_incoming_call);
+
         ringtone = MediaPlayer.create(IncomingCallActivity.this,R.raw.ringtone);
         ringtone.setLooping(true);
         getSupportActionBar().hide();
@@ -56,6 +61,7 @@ public class IncomingCallActivity extends AppCompatActivity {
 
         imageInvitationAccepted.setOnClickListener(view -> sendInvitationResponse(Constants.REMOTE_MSG_INVITATION_ACCEPTED,getIntent().getStringExtra(Constants.REMOTE_MSG_INVITER_TOKEN)));
         imageInvitationRejected.setOnClickListener(view -> sendInvitationResponse(Constants.REMOTE_MSG_INVITATION_REJECTED,getIntent().getStringExtra(Constants.REMOTE_MSG_INVITER_TOKEN)));
+
         ringtone.start();
 
 
