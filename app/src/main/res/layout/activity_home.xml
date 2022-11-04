@@ -96,13 +96,13 @@
             android:textSize="15sp" />
 
         <Button
-            android:id="@+id/tri_obstacle"
+            android:id="@+id/tri_text"
             android:layout_width="200sp"
             android:layout_height="50sp"
             android:layout_marginTop="10dp"
             android:background="@drawable/rectangle"
             android:backgroundTint="#9C27B0"
-            android:text="Obstacle"
+            android:text="Text detection"
             android:textColor="#FFFFFF"
             android:textSize="15sp" />
     </LinearLayout>

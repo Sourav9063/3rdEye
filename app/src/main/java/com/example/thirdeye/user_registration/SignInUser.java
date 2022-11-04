@@ -65,6 +65,7 @@ public class SignInUser extends AppCompatActivity implements View.OnClickListene
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user!= null)
         {
+            setData(user.getUid());
             startActivity(new Intent(SignInUser.this,Home.class));
             finish();
         }
@@ -112,59 +113,65 @@ public class SignInUser extends AppCompatActivity implements View.OnClickListene
                  if(task.isSuccessful()){
                      db= FirebaseDatabase.getInstance();
                      String uid = task.getResult().getUser().getUid();
-                     reference= db.getReference();
-                     //DatabaseReference uidRef = reference.child("Users").child(uid);
-                     Log.d("uid", "onComplete: " + uid);
-                     reference.child("Users").child(uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                         @Override
-                         public void onComplete(@NonNull Task<DataSnapshot> task) {
-                             if (!task.isSuccessful()&& task.getResult()==null) {
-                                 Log.e("firebase", "Error getting data", task.getException());
-                             }
-                             else if(task.getResult().getValue()!=null) {
-
-                                 User user = task.getResult().getValue(User.class);
-                                 Toast.makeText(SignInUser.this,"Welcome "+ user.fullName,Toast.LENGTH_SHORT).show();
-
-                                preferenceManager.putString(Constants.KEY_USER_ID, uid);
-                                preferenceManager.putBoolean(Constants.KEY_SIGNED_IN,true);
-                                preferenceManager.putString(Constants.KEY_USERNAME, user.fullName);
-                                preferenceManager.putString(Constants.KEY_EMAIL, user.email);
-                                preferenceManager.putString(Constants.KEY_ROLE, user.role);
-                                startActivity(new Intent(SignInUser.this, Home.class));
-
-
-                                 Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                             }
-                         }
-                     });
-                     reference.child("Volunteer").child(uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                         @Override
-                         public void onComplete(@NonNull Task<DataSnapshot> task) {
-                             if (!task.isSuccessful()) {
-                                 Log.e("firebase", "Error getting data", task.getException());
-                             }
-                             else if(task.getResult().getValue()!=null) {
-
-                                 User user = task.getResult().getValue(User.class);
-                                 Toast.makeText(SignInUser.this,"Welcome "+ user.fullName,Toast.LENGTH_SHORT).show();
-
-                                 preferenceManager.putString(Constants.KEY_USER_ID, uid);
-                                 preferenceManager.putBoolean(Constants.KEY_SIGNED_IN,true);
-                                 preferenceManager.putString(Constants.KEY_USERNAME, user.fullName.toString());
-                                 preferenceManager.putString(Constants.KEY_EMAIL, user.email);
-                                 preferenceManager.putString(Constants.KEY_ROLE, user.role);
-                                 startActivity(new Intent(SignInUser.this, Home.class));
-
-
-                                 Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                             }
-                         }
-                     });
+                    if(uid!=null)
+                        setData(uid);
 
                  }else{
                      Toast.makeText(SignInUser.this,"Failed to login! Please check your credentials",Toast.LENGTH_LONG).show();
                  }
+            }
+        });
+    }
+    private void setData(String uid)
+    {
+        db= FirebaseDatabase.getInstance();
+        reference= db.getReference();
+        //DatabaseReference uidRef = reference.child("Users").child(uid);
+        Log.d("uid", "onComplete: " + uid);
+        reference.child("Users").child(uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()&& task.getResult()==null) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else if(task.getResult().getValue()!=null) {
+
+                    User user = task.getResult().getValue(User.class);
+                    Toast.makeText(SignInUser.this,"Welcome "+ user.fullName,Toast.LENGTH_SHORT).show();
+
+                    preferenceManager.putString(Constants.KEY_USER_ID, uid);
+                    preferenceManager.putBoolean(Constants.KEY_SIGNED_IN,true);
+                    preferenceManager.putString(Constants.KEY_USERNAME, user.fullName);
+                    preferenceManager.putString(Constants.KEY_EMAIL, user.email);
+                    preferenceManager.putString(Constants.KEY_ROLE, user.role);
+                    startActivity(new Intent(SignInUser.this, Home.class));
+
+
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                }
+            }
+        });
+        reference.child("Volunteer").child(uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else if(task.getResult().getValue()!=null) {
+
+                    User user = task.getResult().getValue(User.class);
+                    Toast.makeText(SignInUser.this,"Welcome "+ user.fullName,Toast.LENGTH_SHORT).show();
+
+                    preferenceManager.putString(Constants.KEY_USER_ID, uid);
+                    preferenceManager.putBoolean(Constants.KEY_SIGNED_IN,true);
+                    preferenceManager.putString(Constants.KEY_USERNAME, user.fullName.toString());
+                    preferenceManager.putString(Constants.KEY_EMAIL, user.email);
+                    preferenceManager.putString(Constants.KEY_ROLE, user.role);
+                    startActivity(new Intent(SignInUser.this, Home.class));
+
+
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                }
             }
         });
     }

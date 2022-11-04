@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.thirdeye.sos.Sos_Page;
 
+import com.example.thirdeye.text_detection.TextDetectionActivity;
 import com.example.thirdeye.utilities.Constants;
 import com.example.thirdeye.utilities.PreferenceManager;
 import com.example.thirdeye.video_meeting.AllUserActivity;
@@ -55,6 +56,7 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
     private FirebaseAuth mAuth;
     private ImageButton back;
     private Button volButton;
+    private Button textDetection;
 
 
     @SuppressLint("MissingInflatedId")
@@ -73,8 +75,9 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
        // checkForBatteryOptimization();
        // askIgnoreOptimization();
         sos=(Button)findViewById(R.id.tri_sos);
-        video=(Button)findViewById(R.id.tri_video);
+        textDetection=(Button)findViewById(R.id.tri_text);
         menu= (ImageButton) findViewById(R.id.menu_button);
+
         mAuth=FirebaseAuth.getInstance();
         back=(ImageButton)findViewById(R.id.back_button);
         volButton=findViewById(R.id.volu_sign);
@@ -97,6 +100,16 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                 startActivity(new Intent(Home.this, AllUserActivity.class));
             }
         });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Home.this, SignInUser.class));
+            }
+        });
+        textDetection.setOnClickListener(view -> {
+            startActivity(new Intent(Home.this, TextDetectionActivity.class));
+        });
+
         FirebaseMessaging.getInstance ().getToken ()
                 .addOnCompleteListener ( task -> {
                     if (!task.isSuccessful ()) {
@@ -168,13 +181,7 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
 //        }
 //    }
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Home.this, SignInUser.class));
-            }
-        });
-    }
+
     public void showPopup(View view) {
         PopupMenu popupMenu=new PopupMenu(this,view);
         popupMenu.setOnMenuItemClickListener(this);
@@ -189,6 +196,7 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                 startActivity(new Intent(Home.this, ProfileActivity.class));
                 break;
             case R.id.item_2:
+                sendFcmToken(null);
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(Home.this, SignUP.class));
                 finish();
