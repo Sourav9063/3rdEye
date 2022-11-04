@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,7 +44,7 @@ public class OutgoingCallActivity extends AppCompatActivity{
         private String meetingType = "";
     private PreferenceManager preferenceManager;
     String meetingRoom = null;
-
+    MediaPlayer ringing;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +52,8 @@ public class OutgoingCallActivity extends AppCompatActivity{
         preferenceManager = new PreferenceManager(getApplicationContext());
 
         getSupportActionBar().hide();
+        ringing = MediaPlayer.create(OutgoingCallActivity.this,R.raw.ringing);
+        ringing.setLooping(true);
         TextView textFirstChar = findViewById(R.id.textFirstChar);
         TextView textUsername = findViewById(R.id.textUsername);
         TextView textEmail = findViewById(R.id.textEmail);
@@ -85,7 +88,7 @@ public class OutgoingCallActivity extends AppCompatActivity{
 
                     }
                 });
-
+     ringing.start();
 
     }
     private  void initiateMeeting(String receiverToken)
@@ -210,5 +213,11 @@ public class OutgoingCallActivity extends AppCompatActivity{
         LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(
                 invitationResponseReceiver
         );
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ringing.release();
     }
 }

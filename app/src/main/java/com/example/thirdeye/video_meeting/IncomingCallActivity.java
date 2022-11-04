@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -33,11 +34,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class IncomingCallActivity extends AppCompatActivity {
-
+    MediaPlayer ringtone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_incoming_call);
+        ringtone = MediaPlayer.create(IncomingCallActivity.this,R.raw.ringtone);
+        ringtone.setLooping(true);
         getSupportActionBar().hide();
         TextView textUsername = findViewById(R.id.textUsername);
         TextView textEmail = findViewById(R.id.textEmail);
@@ -53,7 +56,7 @@ public class IncomingCallActivity extends AppCompatActivity {
 
         imageInvitationAccepted.setOnClickListener(view -> sendInvitationResponse(Constants.REMOTE_MSG_INVITATION_ACCEPTED,getIntent().getStringExtra(Constants.REMOTE_MSG_INVITER_TOKEN)));
         imageInvitationRejected.setOnClickListener(view -> sendInvitationResponse(Constants.REMOTE_MSG_INVITATION_REJECTED,getIntent().getStringExtra(Constants.REMOTE_MSG_INVITER_TOKEN)));
-
+        ringtone.start();
 
 
     }
@@ -154,5 +157,12 @@ public class IncomingCallActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(
                 invitationResponseReceiver
         );
+        ringtone.release();
+    }
+    @Override
+    protected void onPause() {
+
+        super.onPause();
+        ringtone.release();
     }
 }
