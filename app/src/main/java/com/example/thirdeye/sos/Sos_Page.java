@@ -69,7 +69,7 @@ public class Sos_Page extends AppCompatActivity {
                 if(i!=TextToSpeech.ERROR)
                 {
                     textToSpeech.setLanguage(Locale.ENGLISH);
-                    textToSpeech.speak("SOS Service",TextToSpeech.QUEUE_FLUSH,null);
+                    textToSpeech.speak("SOS Service & Shake Phone anytime in emergency",TextToSpeech.QUEUE_FLUSH,null);
                 }
             }
         });

@@ -102,7 +102,7 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                 if(i!=TextToSpeech.ERROR)
                 {
                     textToSpeech.setLanguage(Locale.ENGLISH);
-                    String text = "Hello, Hope you are doing fine. Tap on the upper middle Screen and Speak Text, Volunteer or Emergency to get Service.";
+                    String text = "Hello, Hope you are doing fine. Tap on the upper middle Screen and Speak, Text, Volunteer, obstacle  or Emergency to get Service.";
                     textToSpeech.speak(text,TextToSpeech.QUEUE_FLUSH,null);
                 }
             }
@@ -210,7 +210,7 @@ public class Home extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Home.this, SignInUser.class));
+                finish();
             }
         });
         textDetection.setOnClickListener(view -> {
