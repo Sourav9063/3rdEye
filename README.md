@@ -1,6 +1,6 @@
 # 3rdEye UI Design
 
-[Demo](https://www.youtube.com/watch?v=YIr5vqj7AQA)
+#[Demo](https://www.youtube.com/watch?v=YIr5vqj7AQA)
 
 Homepage            |  SignIn/SignUp      |SignUp Options
 :-------------------------:|:-------------------------:|:-------------------------:
